@@ -4,11 +4,10 @@ console.log('App.js is running');
 
 let appObject={
     title:'Indecision App',
-    subtitle:'something something',
-    options:['One', 'Two', 'Three']
+    subtitle:'Put your life in the hands of a computer',
+    options:[]
 };
-
-let getOptions=(options)=>
+const getOptions=(options)=>
 {
     if(options.length > 0)
     {
@@ -23,55 +22,65 @@ let getOptions=(options)=>
 
 };
 
+const onFormSubmit=(e)=>{
+    e.preventDefault(); //Prevents page refresh
 
-const template  = (
-    <div>
-    <h1> {appObject.title}</h1>
-        {appObject.subtitle && <p> {appObject.subtitle}</p>}
-        <p>Here are your options: {getOptions(appObject.options)}</p>
-        <ol>
-            <li>Item one</li>
-            <li>Item two</li>
-        </ol>
-    </div>
-);
-let getLocation=(location)=>{
-    if(location)
-    {
-        return <p>location: {location}</p>
+    //target is the event which is form, accessing a list of elements
+    //which are indexed by name like "option" and finally we get that
+    //value of that var.
+    const option = e.target.elements.option.value;
+
+    if(option){
+        appObject.options.push(option);
+        e.target.elements.option.value ='';
+        render();
     }
 };
+const removeOptions=()=>{
+    appObject.options.length =0;
 
-const appRoot = document.getElementById('app');
-
-let count =0;
-const buttonID= 'my-id';
-let addOne=() =>{
-    count++;
-    renderContentApp();
-};
-
-let minusOne=()=>{
-   count--;
-   renderContentApp();
-};
-
-let reset=()=>{
-    count=0;
-    renderContentApp();
+    render();
 }
+const onMakeDecision=()=>{
+    const randomNum = Math.floor(Math.random() * appObject.options.length);
+    const optionPicked= appObject.options[randomNum];
+    alert(optionPicked);
+};
 
-const renderContentApp=()=>{
-    const template2 =(
+
+//const appRoot = document.getElementById('app');
+
+const render=()=>{
+    const template  = (
         <div>
-            <h1>Count: {count}</h1>
-            <button onClick={addOne} className="button">+1</button>
-            <button onClick={minusOne}> -1</button>
-            <button onClick={reset}> reset</button>
+            <h1> {appObject.title}</h1>
+            {appObject.subtitle && <p> {appObject.subtitle}</p>}
+            <p>Here are your options: {getOptions(appObject.options)}</p>
+            <button disabled={appObject.options.length ===0} onClick={onMakeDecision}>What should I do?</button>
+
+            <button onClick={removeOptions}>Remove All</button>
+            <ol>
+                {
+                    appObject.options.map((op)=>{
+                        return <li key={op}> Option: {op}</li>
+                    })
+                }
+
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option"/>
+                <button>Add Option</button>
+            </form>
+
         </div>
-    )
-    ReactDOM.render(template2, appRoot);
+    );
+    ReactDOM.render(template, appRoot);
 }
 
-renderContentApp();
+render();
+
+
+
+
+
 

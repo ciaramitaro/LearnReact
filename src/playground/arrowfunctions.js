@@ -21,6 +21,7 @@ const template1 =(
         <h1>{user.name ? user.name : 'anonymous'}</h1>
         {(user.age && user.age>= 18) && <p> Age: {user.age}</p>}
         {getLocation(user.location)}
+        <button> </button>
     </div>
 );
 
