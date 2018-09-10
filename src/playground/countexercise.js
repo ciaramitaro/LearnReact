@@ -24,7 +24,7 @@ const renderContentApp=()=>{
             <button onClick={reset}> reset</button>
         </div>
     )
-    ReactDOM.render(template2, appRoot);
+   // ReactDOM.render(template2, appRoot);
 }
 
 renderContentApp();

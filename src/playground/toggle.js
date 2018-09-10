@@ -1,6 +1,6 @@
 
 
-const appRoot = document.getElementById('app');
+//const appRoot = document.getElementById('app');
 
 const toggleVisibility=()=>
 {
@@ -9,7 +9,6 @@ const toggleVisibility=()=>
 }
 
 let visibility =false;
-const list= '';
 const render=()=>{
     const template =(
         <div>
@@ -19,12 +18,12 @@ const render=()=>{
             </button>
             {visibility && (
                 <div>
-                    <p>Hey, these are some details you cna now see.</p>
+                    <p>Hey, these are some details you can  now see.</p>
                 </div>
             )}
         </div>
     );
-    ReactDOM.render(template, appRoot);
+   // ReactDOM.render(template, appRoot);
 }
 
 
