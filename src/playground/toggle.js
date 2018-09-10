@@ -1,5 +1,41 @@
-
-
+class Toggle extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleVisibility = this.handleVisibility.bind(this);
+        this.handleParagraph = this.handleParagraph.bind(this);
+        this.state={
+            visibility :false
+        };
+    }
+    handleVisibility(){
+        this.setState((prevState)=>{
+            return{
+                visibility: !prevState.visibility
+            }
+        })
+    }
+    handleParagraph(){
+       if(this.state.visibility)
+       {
+           return <p> More Information!!</p>
+       }
+       else{
+           return''
+       }
+    }
+    render(){
+        return(
+            <div>
+                <h1>Visibility Toggle</h1>
+                <button onClick={this.handleVisibility}>
+                     {this.state.visibility ? 'Hide Details': 'Show Details'}
+                </button>
+                {this.handleParagraph()}
+            </div>
+        );
+    }
+}
+ReactDOM.render(<Toggle />, document.getElementById('app'));
 
 
 //const appRoot = document.getElementById('app');
